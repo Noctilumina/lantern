@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Lantern</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏮</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="lock" class="lock">
+    <form id="unlock-form" class="lock-card" autocomplete="on">
+      <h1>Lantern</h1>
+      <label for="pw">Password</label>
+      <input id="pw" type="password" autocomplete="current-password" required autofocus>
+      <label class="check"><input id="remember" type="checkbox"> Remember on this device</label>
+      <button type="submit">Unlock</button>
+      <p id="lock-error" class="error" role="alert" hidden></p>
+    </form>
+  </main>
+
+  <div id="app" hidden>
+    <header class="top">
+      <div class="brand">
+        <h1>Lantern</h1>
+        <span id="summary" class="muted"></span>
+      </div>
+      <div class="top-actions">
+        <button id="toggle-filters" class="ghost" aria-expanded="false" aria-controls="filters">Filters</button>
+        <button id="lock-btn" class="ghost">Lock</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside id="filters" class="filters">
+        <input id="q" type="search" placeholder="Search title, company, notes…" aria-label="Search">
+
+        <fieldset class="seg" aria-label="Section">
+          <label><input type="radio" name="section" value="all" checked><span>All</span></label>
+          <label><input type="radio" name="section" value="nearby"><span>Nearby</span></label>
+          <label><input type="radio" name="section" value="remote"><span>Remote</span></label>
+        </fieldset>
+
+        <label class="field">Show
+          <select id="status">
+            <option value="active">New + saved + applied</option>
+            <option value="new">New only</option>
+            <option value="saved">Saved</option>
+            <option value="applied">Applied</option>
+            <option value="hidden">Hidden</option>
+            <option value="all">Everything</option>
+          </select>
+        </label>
+
+        <label class="field">First seen
+          <select id="since">
+            <option value="all">Any time</option>
+            <option value="1">Today</option>
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+          </select>
+        </label>
+
+        <label class="field">Sort
+          <select id="sort">
+            <option value="newest">Newest first</option>
+            <option value="best">Best fit</option>
+            <option value="salary">Highest salary</option>
+            <option value="travel">Shortest travel</option>
+          </select>
+        </label>
+
+        <label class="field">Min fit <output id="fit-out">0%</output>
+          <input id="fit" type="range" min="0" max="100" step="10" value="0">
+        </label>
+
+        <label class="field">Min salary (€/month)
+          <input id="salary" type="number" min="0" step="250" placeholder="e.g. 5000" inputmode="numeric">
+        </label>
+
+        <label class="field">Max travel (min)
+          <input id="travel" type="number" min="0" step="5" placeholder="e.g. 30" inputmode="numeric">
+        </label>
+
+        <div class="field">Match
+          <label class="check"><input type="checkbox" name="match" value="Core" checked> Core</label>
+          <label class="check"><input type="checkbox" name="match" value="Adjacent" checked> Adjacent</label>
+        </div>
+
+        <div class="field">Remote type
+          <label class="check"><input type="checkbox" name="emp" value="EoR" checked> EoR</label>
+          <label class="check"><input type="checkbox" name="emp" value="NL BV" checked> NL BV</label>
+          <label class="check"><input type="checkbox" name="emp" value="Contr." checked> Contractor</label>
+          <label class="check"><input type="checkbox" name="emp" value="?" checked> Unknown</label>
+        </div>
+
+        <div class="field">Hide
+          <label class="check"><input id="hide-agency" type="checkbox"> 🏢 Agencies</label>
+          <label class="check"><input id="hide-nosalary" type="checkbox"> ❓ No salary</label>
+        </div>
+
+        <button id="reset" class="ghost">Reset filters</button>
+      </aside>
+
+      <section class="results" aria-live="polite">
+        <p id="count" class="muted"></p>
+        <div id="list"></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
